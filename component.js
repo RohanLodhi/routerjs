@@ -6,7 +6,7 @@
   _ComponentAsString,
   selfClosingTags,
   getClassAsArray
-} from "./utils";
+} from "./utils.js";
 let renderCount = 0;
 class BaseComponent {
   constructor() {
