@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>RouterJS Example</title>
+    <style>
+      #_r {
+        transition: 0.3s ease-in-out;
+      }
+      #_r.black {
+        color: black;
+      }
+      #_r.red {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div _routerIf="this.currentRoute==='/'">
+      This div is only visible when the current route is "/"
+    </div>
+    <div _routerIf="this.currentRoute==='/hello/'">
+      This div is only visible when the current route is "/hello"
+    </div>
+    <div
+      _routerIf="true"
+      _routerThen="$.textContent='current route: '+this.currentRoute"
+    ></div>
+    <button
+      _routerEvt="onclick"
+      data-count="0"
+      _routerAct='$.dataset.count=parseInt($.dataset.count)+1;$.textContent = "clicked " + +$.dataset.count + " times";'
+    >
+      Click Me!
+    </button>
+    <div id="app-root"></div>
+    <script type="module" src="./index.js"></script>
+  </body>
+</html>
