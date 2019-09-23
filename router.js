@@ -1,6 +1,6 @@
-﻿import Component, { TextComponent } from "./component";
-import { $, isDev, safeDefine } from "./utils";
-import { parseHash as _parseHash, loadHash } from "./routerUtils";
+﻿import Component, { TextComponent } from "./component.js";
+import { $, isDev, safeDefine } from "./utils.js";
+import { parseHash as _parseHash, loadHash } from "./routerUtils.js";
 const _checkHashChangeHandler = () => {
   if (typeof window.onhashchange === "function") {
     isDev
