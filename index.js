@@ -1,5 +1,5 @@
-import Router from "/router.js";
-import Component, { TextComponent } from "/component.js";
+import Router from "/routerjs/router.js";
+import Component, { TextComponent } from "/routerjs/component.js";
 
 const HelloComponent = new Component("div", {}, [
   new TextComponent("Hello!"),
