@@ -52,6 +52,7 @@ export default class Component extends BaseComponent {
   onDestroy: () => any;
   shouldRender(): boolean;
   update(): void;
+  updateHook(): boolean;
   toHTMLString(): string;
   /**
    * Use after calling destroyChildComponents
@@ -86,7 +87,7 @@ export default class Component extends BaseComponent {
     events?: {}
   );
 }
-export declare class TextComponent extends Text {
+export declare class TextComponent {
   tag: string;
   isMountedTo: HTMLElement;
   toHTMLString(): string;
@@ -98,5 +99,6 @@ export declare class TextComponent extends Text {
   shouldRender(): boolean;
   destroyComponent(): void;
   constructor(text: string, tag?: string);
+  data: string;
 }
 export {};
