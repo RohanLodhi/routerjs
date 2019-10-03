@@ -200,7 +200,14 @@ export default class Component extends BaseComponent {
   shouldRender() {
     return true;
   }
+
+  /** add custom update logic here, return false to prevent default update*/
+  updateHook() {
+    return true;
+  }
   update() {
+    const hook = this.updateHook();
+    if (!hook) return;
     this.updateChildren(this.$element);
     this.updateDOMAttrs();
     return void 0;
@@ -318,41 +325,48 @@ export default class Component extends BaseComponent {
     return this;
   }
 }
-export class TextComponent extends Text {
+export class TextComponent {
   constructor(text, tag) {
-    super(text);
-    this._condition = () => this.data;
-    this.tag = tag;
+    this.__node = document.createTextNode(text);
+    this.__node.component = this;
+    this.__node._condition = () => this.__node.data;
+    this.__node.tag = tag;
   }
   toHTMLString() {
-    return this.data;
+    return this.__node.data;
   }
   static find(tag, on) {
     const nodes = [...on.childNodes];
-    return nodes.filter(
-      node => node instanceof TextComponent && node.tag === tag
-    );
+    return nodes
+      .filter(node => node instanceof Text && node.tag === tag)
+      .map(x => x.component);
   }
   set textCondition(conditionFn) {
-    this._condition = conditionFn;
+    this.__node._condition = conditionFn;
+  }
+  set data(val) {
+    this.__node.data = val;
+  }
+  get data() {
+    return this.__node.data;
   }
   update() {
-    const _ = this._condition();
-    if (this.data !== _) {
-      return void (this.data = _);
+    const _ = this.__node._condition();
+    if (this.__node.data !== _) {
+      return void (this.__node.data = _);
     }
   }
   render(on, append) {
-    if (append && !this.isConnected) {
-      this.isMountedTo = on;
+    if (append && !this.__node.isConnected) {
+      this.__node.isMountedTo = on;
       this.update();
-      return on.appendChild(this);
+      return on.appendChild(this.__node);
     }
   }
   shouldRender() {
     return true;
   }
   destroyComponent() {
-    this.remove();
+    this.__node.remove();
   }
 }

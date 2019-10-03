@@ -104,8 +104,9 @@ export default class Router {
       };
     }
     try {
-      const _sanitizedRoute = this.parseHash(route);
-      const sanitizedRoute = _sanitizedRoute.route;
+      const _sanitizedRoute = this.parseHash(route).fullPath;
+      const sanitizedRoute = _sanitizedRoute;
+      console.log(this.routeList, sanitizedRoute);
       if (this.routeList.includes(sanitizedRoute)) {
         return {
           res: !0,
@@ -152,8 +153,11 @@ export default class Router {
   get currentRoute() {
     return this.parseHash(location.href).route;
   }
-  get currentPath() {
+  get currentPaths() {
     return this.parseHash(location.href).path;
+  }
+  get fullPath() {
+    return this.parseHash(location.href).fullPath;
   }
   get currentQs() {
     return this.parseHash(location.href).qs;

@@ -5,7 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>RouterJS Example</title>
+    <link rel="stylesheet" href="https://fonts.pycode.tk/open-sans.css" />
     <style>
+      .feat-inf {
+        margin: auto;
+        text-align: center;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        border: 2px solid var(--border-shadow-color);
+        padding: 5px;
+        border-radius: 10px;
+      }
+      #app-root {
+        margin-top: 75px;
+      }
+      .color-pick-manual,
+      .curr-route {
+        border-radius: 5px;
+        padding: 4px;
+        background: transparent;
+        color: white;
+        font-weight: bold;
+        border: 1px solid var(--border-shadow-color);
+      }
+      .color-pick-manual {
+        border: 2px solid #000;
+        cursor: pointer;
+      }
+      body {
+        font-family: "Open Sans", sans-serif;
+        --primary-color: #4749e4;
+        --translate-normal-pos: translate(1%, 150%);
+        --translate-up: translate(1%, 1%);
+        --text-color: #000;
+        --border-shadow-color: #e3e3e3;
+        --header-text-color: #fff;
+        --background-color: #fff;
+        --button-color: var(--primary-color);
+        transition: 0.2s ease-in-out;
+      }
       #_r {
         transition: 0.3s ease-in-out;
       }
@@ -15,34 +53,53 @@
       #_r.red {
         color: red;
       }
+      header {
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 20;
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 8px;
+        overflow: hidden;
+        background: var(--primary-color);
+        text-align: center;
+        color: var(--header-text-color);
+      }
+      .hoverable {
+        cursor: pointer;
+        transition: 0.3s ease-in-out;
+        transform-style: preserve-3d;
+      }
+      .hoverable:hover {
+        transform: perspective(1px) scale(1.048) translate3d(0, 0, 0);
+      }
     </style>
   </head>
   <body>
-    <div style="font-weight:bold;margin:auto;text-align;font-size:22px;">
-      <h1>Router Js Features, documentation coming soon.</h1>
-    </div>
-    <div _routerIf="this.currentRoute==='/'">
-      This div is only visible when the current route is "/"
-    </div>
-    <div _routerIf="this.currentRoute==='/hello/'">
-      This div is only visible when the current route is "/hello"
-    </div>
-    <div
-      _routerIf="true"
-      _routerThen="$.textContent='current route: '+this.currentRoute"
-    ></div>
-    <button
-      _routerEvt="onclick"
-      data-count="0"
-      _routerAct='$.dataset.count=parseInt($.dataset.count)+1;$.textContent = "clicked " + +$.dataset.count + " times";'
-    >
-      Click Me!
-    </button>
+    <header>
+      <input
+        _routerIf="true"
+        disabled
+        style="width:70%;text-align: center"
+        class="curr-route"
+        _routerThen="$.value='current route: '+this.fullPath"
+      />
+      <div>
+        <span>Change The Value here to select primary color</span>
+        <input
+          type="color"
+          class="color-pick-manual"
+          style="width:10%"
+          _routerEvt="oninput"
+          _routerAct="document.body.style.setProperty('--primary-color',$.value)"
+          value="#4749e4"
+        />
+      </div>
+    </header>
     <div id="app-root"></div>
-    <script type="module" src="./index.js"></script>
-    <p>
-      For the code
-      <a href="https://github.com/RohanLodhi/routerjs"> Click Here </a>
-    </p>
+    <script type="module" src="./static/app.js"></script>
   </body>
 </html>

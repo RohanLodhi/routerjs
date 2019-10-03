@@ -77,13 +77,16 @@ export const parseHash = (route = window.location.href) => {
     }
   const d = url.split("?"),
     [l, m] = [0 === url.length ? "/" : d[0], d[1]];
+  const cr = _currentRoute(l);
+  const path = l
+    .split("/")
+    .filter(x => x)
+    .slice(1);
   return {
-    route: _currentRoute(l),
-    path: l
-      .split("/")
-      .filter(x => x)
-      .slice(1),
-    qs: new URLSearchParams(m)
+    route: cr,
+    path,
+    qs: new URLSearchParams(m),
+    fullPath: cr + path.join("/")
   };
 };
 export const setQS = (k, v) => {
